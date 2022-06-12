@@ -75,5 +75,32 @@ public class MainActivityTest {
         onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click()); //Check the content on the list - no content in this case
         Espresso.pressBack(); //Back button
     }
+    @Test
+    public void testFull(){
+        onView(withId(R.id.button_add)).perform(click());// clicking add button
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("ABC"));// typing in edittext
+        Espresso.pressBack();
+        onView(withId(R.id.button_confirm)).perform(click());// confirming
+        onView(withText("ABC")).check(matches(isDisplayed()));// abc displayed or not checking
 
+        onView(withId(R.id.button_add)).perform(click());// clicking add button
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("DEF"));// typing in edittext
+        Espresso.pressBack();
+        onView(withId(R.id.button_confirm)).perform(click());// confirming
+        onView(withText("DEF")).check(matches(isDisplayed()));// abc displayed or not checking
+
+        onView(withId(R.id.button_add)).perform(click());// clicking add button
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("HIJ"));// typing in edittext
+        Espresso.pressBack();
+        onView(withId(R.id.button_confirm)).perform(click());// confirming
+        onView(withText("HIJ")).check(matches(isDisplayed()));// abc displayed or not checking
+
+        onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click()); // clicking position 0 of list
+        onView(withId(R.id.show)).check(matches(isDisplayed()));// second activity viewed or not
+
+        onView(withText("ABC")).check(matches(isDisplayed()));// abc viewed in second activity or not
+
+        onView(withId(R.id.back)).perform(click()); // pressing back button
+        onView(withId(R.id.main)).check(matches(isDisplayed()));// MainActivity displayed or not
+    }
 }
